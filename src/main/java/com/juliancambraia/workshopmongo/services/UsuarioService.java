@@ -29,4 +29,9 @@ public class UsuarioService {
         Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!")));
         return usuarioMapper.toDto(usuario.get());
     }
+
+    public Usuario save(UsuarioDTO dto) {
+        Usuario usuario = usuarioMapper.toEntity(dto);
+        return usuarioRepository.save(usuario);
+    }
 }
