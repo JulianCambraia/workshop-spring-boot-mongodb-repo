@@ -41,4 +41,13 @@ public class UsuarioService {
             usuarioRepository.delete(usuario.get());
         }
     }
+
+    public UsuarioDTO update(UsuarioDTO usuarioDTO) {
+        Usuario usuario1 = null;
+        Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findById(usuarioDTO.getId()).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!")));
+        if (usuario.isPresent()) {
+            usuario1 = save(usuarioDTO);
+        }
+        return usuarioMapper.toDto(usuario1);
+    }
 }
