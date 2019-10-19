@@ -34,4 +34,11 @@ public class PostResource {
         return ResponseEntity.ok().body(list);
     }
 
+    @GetMapping(value = "/pesquisarTitulo")
+    public ResponseEntity<List<Post>> pesquisarPorTituloNoEstiloMongoDB(@RequestParam(value = "texto", defaultValue = "") String texto) {
+        texto = URL.decodeParam(texto);
+        List<Post> list = postService.findByTitulo(texto);
+        return ResponseEntity.ok().body(list);
+    }
+
 }

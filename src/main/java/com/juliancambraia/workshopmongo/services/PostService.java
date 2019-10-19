@@ -26,6 +26,10 @@ public class PostService {
     }
 
     public List<Post> findByTitulo(String text) {
-        return postRepository.findByTituloContaining(text);
+        return postRepository.findByTituloContainingIgnoreCase(text);
+    }
+
+    public List<Post> pesquisarPorTituloNoEstiloMongoDB(String texto) {
+        return postRepository.pesquisaTitulo(texto);
     }
 }
