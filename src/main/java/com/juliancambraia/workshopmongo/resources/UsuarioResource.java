@@ -5,6 +5,7 @@ import com.juliancambraia.workshopmongo.dto.UsuarioDTO;
 import com.juliancambraia.workshopmongo.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -41,5 +42,11 @@ public class UsuarioResource {
         // pedando a URI do novo objeto inserido
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).build();
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> delete(@PathVariable String id) {
+        usuarioService.delete(id);
+        return ResponseEntity.noContent().build();
     }
 }

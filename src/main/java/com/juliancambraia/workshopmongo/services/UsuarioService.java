@@ -34,4 +34,11 @@ public class UsuarioService {
         Usuario usuario = usuarioMapper.toEntity(dto);
         return usuarioRepository.save(usuario);
     }
+
+    public void delete(String id) {
+        Optional<Usuario> usuario = Optional.ofNullable(usuarioRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!")));
+        if (usuario.isPresent()) {
+            usuarioRepository.delete(usuario.get());
+        }
+    }
 }
