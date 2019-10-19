@@ -1,6 +1,7 @@
 package com.juliancambraia.workshopmongo.resources;
 
 import com.juliancambraia.workshopmongo.domain.Usuario;
+import com.juliancambraia.workshopmongo.dto.UsuarioDTO;
 import com.juliancambraia.workshopmongo.services.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -17,8 +18,8 @@ public class UsuarioResource {
     @Autowired
     private UsuarioService usuarioService;
     @GetMapping
-    public ResponseEntity<List<Usuario>> findAll() {
-        List<Usuario> list = usuarioService.findAll();
+    public ResponseEntity<List<UsuarioDTO>> findAll() {
+        List<UsuarioDTO> list = usuarioService.findAll();
         return ResponseEntity.ok().body(list);
     }
 }

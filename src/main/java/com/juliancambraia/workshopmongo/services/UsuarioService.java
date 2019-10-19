@@ -1,6 +1,8 @@
 package com.juliancambraia.workshopmongo.services;
 
 import com.juliancambraia.workshopmongo.domain.Usuario;
+import com.juliancambraia.workshopmongo.dto.UsuarioDTO;
+import com.juliancambraia.workshopmongo.mappers.UsuarioMapper;
 import com.juliancambraia.workshopmongo.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,11 @@ public class UsuarioService {
     @Autowired
     private UsuarioRepository usuarioRepository;
 
-    public List<Usuario> findAll() {
-        return usuarioRepository.findAll();
+    @Autowired
+    private UsuarioMapper usuarioMapper;
+
+    public List<UsuarioDTO> findAll() {
+        List<Usuario> usuarios = usuarioRepository.findAll();
+        return usuarioMapper.toDtos(usuarios);
     }
 }
