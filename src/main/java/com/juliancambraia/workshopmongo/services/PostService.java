@@ -8,20 +8,24 @@ import com.juliancambraia.workshopmongo.services.exceptions.ObjectNotFoundExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
 public class PostService {
 
     @Autowired
-    private PostRepository postRepositoryy;
+    private PostRepository postRepository;
 
     @Autowired
     private PostMapper postMapper;
 
     public PostDTO findById(String id) {
-        Optional<Post> post = Optional.ofNullable(postRepositoryy.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!")));
+        Optional<Post> post = Optional.ofNullable(postRepository.findById(id).orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado!")));
         return postMapper.toDto(post.get());
     }
 
+    public List<Post> findByTitulo(String text) {
+        return postRepository.findByTituloContaining(text);
+    }
 }
