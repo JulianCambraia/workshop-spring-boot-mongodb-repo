@@ -2,7 +2,10 @@ package com.juliancambraia.workshopmongo.dto;
 
 import com.juliancambraia.workshopmongo.domain.Usuario;
 
-public class AutorDTO {
+import java.io.Serializable;
+
+public class AutorDTO implements Serializable {
+    private static final long serialVersionUID = 1L;
     private String id;
     private String nome;
 
