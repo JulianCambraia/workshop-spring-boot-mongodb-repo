@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Date;
 import java.util.List;
 
 @RestController
@@ -37,7 +38,18 @@ public class PostResource {
     @GetMapping(value = "/pesquisarTitulo")
     public ResponseEntity<List<Post>> pesquisarPorTituloNoEstiloMongoDB(@RequestParam(value = "texto", defaultValue = "") String texto) {
         texto = URL.decodeParam(texto);
-        List<Post> list = postService.findByTitulo(texto);
+        List<Post> list = postService.pesquisarPorTituloNoEstiloMongoDB(texto);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @GetMapping(value = "/pesquisaCompleta")
+    public ResponseEntity<List<Post>> pesquisaCompletaNoEstiloMongoDB(@RequestParam(value = "texto", defaultValue = "") String texto,
+                                                                      @RequestParam(value = "minDate", defaultValue = "") String minDate,
+                                                                      @RequestParam(value = "maxDate", defaultValue = "") String maxDate) {
+        texto = URL.decodeParam(texto);
+        Date min = URL.converteDate(minDate, new Date(0L));
+        Date max = URL.converteDate(maxDate, new Date());
+        List<Post> list = postService.pesquisarCompletaNoEstiloMongoDB(texto, min, max);
         return ResponseEntity.ok().body(list);
     }
 

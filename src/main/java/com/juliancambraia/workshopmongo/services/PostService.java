@@ -8,6 +8,7 @@ import com.juliancambraia.workshopmongo.services.exceptions.ObjectNotFoundExcept
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,5 +32,10 @@ public class PostService {
 
     public List<Post> pesquisarPorTituloNoEstiloMongoDB(String texto) {
         return postRepository.pesquisaTitulo(texto);
+    }
+
+    public List<Post> pesquisarCompletaNoEstiloMongoDB(String texto, Date dataMinima, Date dataMaxima) {
+        dataMaxima = new Date(dataMaxima.getTime() + 24 * 60 * 60 * 1000);
+        return postRepository.pesquisaCompleta(texto, dataMinima, dataMaxima);
     }
 }
