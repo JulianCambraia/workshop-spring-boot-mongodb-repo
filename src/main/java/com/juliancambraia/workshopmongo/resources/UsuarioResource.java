@@ -1,9 +1,9 @@
 package com.juliancambraia.workshopmongo.resources;
 
 import com.juliancambraia.workshopmongo.domain.Usuario;
+import com.juliancambraia.workshopmongo.dto.PostDTO;
 import com.juliancambraia.workshopmongo.dto.UsuarioDTO;
 import com.juliancambraia.workshopmongo.services.UsuarioService;
-import com.juliancambraia.workshopmongo.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -40,7 +40,7 @@ public class UsuarioResource {
 
     @PostMapping
     public ResponseEntity<Void> save(@RequestBody UsuarioDTO usuarioDTO) {
-        Usuario usuario  = usuarioService.save(usuarioDTO);
+        Usuario usuario = usuarioService.save(usuarioDTO);
         // pedando a URI do novo objeto inserido
         URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(usuario.getId()).toUri();
         return ResponseEntity.created(uri).build();
@@ -59,4 +59,9 @@ public class UsuarioResource {
         return ResponseEntity.ok().body(dto);
     }
 
+    @GetMapping(value = "/{id}/posts")
+    public ResponseEntity<List<PostDTO>> findPosts(@PathVariable String id) {
+        UsuarioDTO usuarioDTO = usuarioService.findById(id);
+        return ResponseEntity.ok().body(usuarioDTO.getPosts());
+    }
 }

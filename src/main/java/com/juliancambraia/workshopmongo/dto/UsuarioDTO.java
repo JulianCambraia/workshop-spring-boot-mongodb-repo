@@ -1,14 +1,16 @@
 package com.juliancambraia.workshopmongo.dto;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class UsuarioDTO {
     private String id;
     private String nome;
     private String email;
+    private List<PostDTO>  posts = new ArrayList<>();
 
     public UsuarioDTO() {
     }
-
-
 
     public String getId() {
         return id;
@@ -32,5 +34,9 @@ public class UsuarioDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<PostDTO> getPosts() {
+        return posts;
     }
 }
